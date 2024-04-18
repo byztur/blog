@@ -1,0 +1,98 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    增加动态
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <div class="jumbotron jumbotron-fluid mb-3 pl-0 pt-0 pb-0 bg-white position-relative">
+        <div class="d-flex align-items-center">
+            <img class="img-circle" src="{{ MEDIA_URL }}{{request.user.image}}" width="70">
+            <small class="ml-2">{{request.user.nike_name}}
+                <span class="text-muted d-block">{{request.user.describe}}</span>
+            </small>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">在这里增加你的新动态！</div>
+    <div class="panel-body">
+    <form method="post" action="/dynamics/add/" enctype="multipart/form-data">
+        {%csrf_token%}
+        <div class="row justify-content-center">
+             <div class="col-md-12 col-lg-8" >
+{#                 动态标题#}
+                <div class="row form-group col-md-8 col-lg-8">
+                    <div class="col">
+                        <input name="title" type="text" class="form-control" placeholder="请输入标题" />
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+{#                 动态内容#}
+                <div class="form-group">
+                    <textarea name="description" class="form-control"
+                              id="exampleFormControlTextarea1" rows="6" placeholder="请输入动态"></textarea>
+                </div>
+{#                 添加动态标签#}
+{#                 选择标签#}
+                 <div class="form-group">
+                        <label>请选择分类</label>
+                        <select class="form-control" name="classification">
+                            {% for item in class_choices %}
+                            <option value="{{ item.0 }}">{{ item.1 }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+{#                 按钮#}
+                <button type="submit" class="btn btn-primary btn-round">提交动态</button>
+             </div>
+            <div class="col-lg-2 pr-4 mb-4 col-md-12">
+            <!--                图片编辑区-->
+                 <div class="fileinput fileinput-new" data-provides="fileinput"  id="exampleInputUpload">
+                        <div class="fileinput-new thumbnail" style="width: 200px;height: auto;max-height:150px;">
+                            <img id='picImg' style="width: 100px;height: auto;max-height: 140px;"  alt="" />
+                        </div>
+                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
+                        </div>
+                        <div >
+                            <span class="btn btn-sm btn-info btn-file" style="cursor: pointer;" >
+                                <span class="fileinput-new " style="cursor: pointer;" >选择展板图片</span>
+                                <span class="fileinput-exists " style="cursor: pointer;" >换一张</span>
+                                <input type="file" name="image" id="picID" style="cursor: pointer;"
+                                       accept="image/gif,image/jpeg,image/x-png"/>
+                            </span>
+                            <a href="javascript:;" class="btn btn-sm btn-warning fileinput-exists"
+                               data-dismiss="fileinput">移除</a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+     </form>
+    </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <link href="{% static 'css/bootstrap-fileinput.css' %}" rel="stylesheet">
+    <script src="{% static 'js/bootstrap-fileinput.js' %}"></script>
+    <script>
+        $(function () {
+            /* 图片上传后动态加载 */
+            $("#uploadfile").change(function () {
+
+                /*在改变照片时，清空以前图片*/
+                $("#image").empty();
+                var oFReader = new FileReader();
+                var file = document.getElementById('uploadfile').files[0];
+                oFReader.readAsDataURL(file);
+                oFReader.onloadend = function (oFRevent) {
+                    var src = oFRevent.target.result;
+                    console.log(src);
+                    $("#image").append("<img src=\"" + src + "\">");
+                }
+            });
+        })
+    </script>
+{% endblock %}

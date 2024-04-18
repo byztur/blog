@@ -1,0 +1,118 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    个人信息编辑
+{% endblock %}
+
+{% block content %}
+    <div class="container m-auto col-md-6 col-lg-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">编辑个人资料</h3>
+            </div>
+            <div class="panel-body">
+                <form enctype="multipart/form-data" method="post" action="/userinfo/edit/">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>First name</label>
+                        <input type="text" class="form-control" placeholder="firstname" name="first_name"
+                               value="{{ user.first_name }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Last name</label>
+                        <input type="text" class="form-control" placeholder="lastname" name="last_name"
+                               value="{{ user.last_name }}">
+                    </div>
+                    <div class="form-group">
+                        <label>昵称</label>
+                        <input type="text" class="form-control" placeholder="昵称" name="nike_name"
+                               value="{{ user.nike_name }}">
+                    </div>
+                    <div class="form-group">
+                        <label>出生日期</label>
+                        <input type="date" class="form-control" name="birthday"
+                               value="{{ user.birthday }}">
+                    </div>
+                    <div class="form-group">
+                        <label>性别</label>
+                        <select class="form-control" name="gender">
+                            <option value="male" {% if user.gender == 'male' %}
+                                    selected {% endif %}>
+                                男
+                            </option>
+                            <option value="female" {% if user.gender == 'female' %}
+                                    selected {% endif %}>
+                                女
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>简介</label>
+                        <textarea name="describe">
+                              {{ user.describe }}
+                          </textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="fileinput fileinput-new" data-provides="fileinput" id="exampleInputUpload">
+                            <div class="fileinput-new thumbnail" style="width: 200px;height: auto;max-height:150px;">
+                                {% if user.image == "image/default.png" %}
+                                    <img id='picImg' style="width: 100px;height: auto;max-height: 140px;"
+                                         src="{% static 'img/login/default.png' %}" alt=""/>
+                                {% else %}
+                                    <img id='picImg' style="width: 100px;height: auto;max-height: 140px;"
+                                         src="{{ MEDIA_URL }}{{ user.image }}" alt=""/>
+                                {% endif %}
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"
+                                 style="max-width: 200px; max-height: 150px;">
+                            </div>
+                            <div>
+                            <span class="btn btn-sm btn-info btn-file" style="cursor: pointer;">
+                            <span class="fileinput-new" style="cursor: pointer;">选择照片</span>
+                            <span class="fileinput-exists" style="cursor: pointer;">换一张</span>
+                            <input type="file" name="image" id="picID" style="cursor: pointer;"
+                                   accept="image/gif,image/jpeg,image/x-png" src="{{ MEDIA_URL }}{{ user.image }}"/>
+                        </span>
+                                <a href="javascript:;" class="btn btn-sm btn-warning fileinput-exists"
+                                   data-dismiss="fileinput">移除</a>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">提交修改信息</button>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block js %}
+
+    <link href="{% static 'css/bootstrap-fileinput.css' %}" rel="stylesheet">
+    <script src="{% static 'js/bootstrap-fileinput.js' %}"></script>
+    <script>
+        $(function () {
+            /* 图片上传后动态加载 */
+            $("#uploadfile").change(function () {
+
+                /*在改变照片时，清空以前图片*/
+                $("#image").empty();
+                var oFReader = new FileReader();
+                var file = document.getElementById('uploadfile').files[0];
+                oFReader.readAsDataURL(file);
+                oFReader.onloadend = function (oFRevent) {
+                    var src = oFRevent.target.result;
+                    console.log(src);
+                    $("#image").append("<img src=\"" + src + "\">");
+                }
+            });
+        })
+    </script>
+
+{% endblock %}

@@ -1,0 +1,233 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    更多 查看动态细节
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+    <div class="row justify-content-between">
+				<div class="col-md-6 pt-6 pb-6 pr-6 align-self-center">
+                  <div class="alert alert-info" role="alert">
+                        <p class="text-uppercase font-weight-bold">
+{#						    <a class="text-danger" href="">个人动态</a>#}
+                            <button href="/dynamics/mynew/" class="text-danger">点击进入个人动态</button>
+					    </p>
+					<h1 class="display-4 secondfont mb-3 font-weight-bold">{{ dynamic.title }}</h1>
+					<p class="mb-3">
+						 {{ dynamic.description }}
+					</p>
+					<div class="d-flex align-items-center">
+						<img class="img-circle" src="{{ MEDIA_URL }}{{ author.image }}" style="width: 70px">
+						<small class="ml-6">
+                            {{ author.nike_name }}
+                            <br>
+                            <span class="text-muted d-block">{{ dynamic.publishDate }}</span>
+						</small>
+					</div>
+                  </div>
+
+				</div>
+				<div class="col-md-6 pr-0">
+					<img class="img-thumbnail" style="height: 350px; width: 500px; display: block;" src="{{ MEDIA_URL }}{{ dynamic.photo }}">
+				</div>
+{#        只能在动态具体里实现#}
+                <blockquote class="d-flex justify-content-center align-items-center">
+                    {% csrf_token %}
+                     <button id="lbtn" class="btn btn-primary" type="button">
+                         点赞 <span id="like" class="badge">{{ dynamic.likeCount }}</span>
+                     </button>
+                    {% csrf_token %}
+                    <button id="dbtn" class="btn btn-primary" type="button">
+                        踩 <span id="dislike" class="badge">{{ dynamic.dislikeCount }}</span>
+                    </button>
+                    {% csrf_token %}
+                    <button id="cbtn" class="btn btn-primary" type="button">
+                        评论 <span class="badge">{{ dynamic.commentCount }}</span>
+                    </button>
+                </blockquote>
+			</div>
+    <div class="container pt-4 pb-4">
+	<div class="row">
+		<div class="col-lg-8 col-md-6 col-md-push-10">
+			<div class="sticky-top">
+                    <div class="text-muted">
+					分享动态
+				</div>
+					<!-- AddToAny BEGIN -->
+					<div class="a2a_default_style" style="line-height: 32px;">
+						<a class="a2a_dd" href="https://www.addtoany.com/share#url=https%3A%2F%2Fmundana.bootmb.com%2Farticle.html&amp;title=Mundana%20Template%20by%20WowThemesNet">
+                            <span class="a2a_svg a2a_s__default a2a_s_a2a" style="background-color: rgb(1, 102, 255);">
+                                <svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                                    <g fill="#FFF"><path d="M14 7h4v18h-4z"></path><path d="M7 14h18v4H7z"></path></g></svg></span><span class="a2a_label a2a_localize" data-a2a-localize="inner,Share">分享</span></a>
+						<a class="a2a_button_facebook" target="_blank" rel="nofollow noopener" href="/#facebook">
+                            <span class="a2a_svg a2a_s__default a2a_s_facebook" style="background-color: rgb(8, 102, 255);">
+                                <svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                                    <path fill="#fff" d="M28 16c0-6.627-5.373-12-12-12S4 9.373 4 16c0 5.628 3.875 10.35 9.101 11.647v-7.98h-2.474V16H13.1v-1.58c0-4.085 1.849-5.978 5.859-5.978.76 0 2.072.15 2.608.298v3.325c-.283-.03-.775-.045-1.386-.045-1.967 0-2.728.745-2.728 2.683V16h3.92l-.673 3.667h-3.247v8.245C23.395 27.195 28 22.135 28 16Z"></path></svg></span><span class="a2a_label">Facebook</span></a>
+						<a class="a2a_button_twitter" target="_blank" rel="nofollow noopener" href="/#twitter">
+                            <span class="a2a_svg a2a_s__default a2a_s_twitter" style="background-color: rgb(29, 155, 240);">
+                                <svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                                    <path fill="#FFF" d="M28 8.557a9.913 9.913 0 0 1-2.828.775 4.93 4.93 0 0 0 2.166-2.725 9.738 9.738 0 0 1-3.13 1.194 4.92 4.92 0 0 0-3.593-1.55 4.924 4.924 0 0 0-4.794 6.049c-4.09-.21-7.72-2.17-10.15-5.15a4.942 4.942 0 0 0-.665 2.477c0 1.71.87 3.214 2.19 4.1a4.968 4.968 0 0 1-2.23-.616v.06c0 2.39 1.7 4.38 3.952 4.83-.414.115-.85.174-1.297.174-.318 0-.626-.03-.928-.086a4.935 4.935 0 0 0 4.6 3.42 9.893 9.893 0 0 1-6.114 2.107c-.398 0-.79-.023-1.175-.068a13.953 13.953 0 0 0 7.55 2.213c9.056 0 14.01-7.507 14.01-14.013 0-.213-.005-.426-.015-.637.96-.695 1.795-1.56 2.455-2.55z"></path></svg></span><span class="a2a_label">Twitter</span></a>
+                    </div>
+					<script async="" src="https://static.addtoany.com/menu/page.js"></script>
+					<!-- AddToAny END -->
+			</div>
+		</div>
+		<div class="col-md-12 col-lg-8">
+{#            文章内容#}
+{#			<article class="article-post text-center">#}
+{#			    <p>{{ dynamic.description }}</p>#}
+{#			</article>#}
+			<div class="border p-5 bg-lightblue">
+				<div class="row">
+					<div class="col-md-6 mb-2 col-md-push-6">
+						<h5 class="font-weight-bold secondfont">Become a member</h5>
+						 Get the latest news right in your inbox. We never spam!
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+        </div>
+    </div>
+{#    评论内容#}
+    <div class="panel panel-default col-md-10 col-md-offset-1">
+        <div class="panel-heading">增加评论</div>
+        <div>
+            <a class="nav-link" href="#">
+                <img class="img-circle" src="{{ MEDIA_URL }}{{ author.image }}" style="width: 50px;border:1px solid black">
+                <span class="align-middle">{{ author.nike_name }}</span>
+            </a>
+        </div>
+        <div class="panel-body">
+            <form method="post" action="/dynamics/comment/add/{{ dynamic.id }}/" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <textarea name="comment" class="form-control"
+                              id="exampleFormControlTextarea1" rows="6" placeholder="请输入评论"></textarea>
+                </div>
+                <button id="cbtn" type="submit" class="btn btn-primary btn-round">提交评论</button>
+            </form>
+        </div>
+    </div>
+{#    评论列表#}
+    <div class="panel panel-default col-md-10 col-md-offset-1">
+        <div class="panel-heading">评论列表</div>
+        {% for comment in comment_list %}
+        <div class="panel-body">
+            <div class="panel panel-default col-md-10 col-md-offset-1">
+                <div class="panel-heading">
+                    <a class="nav-link" href="#">
+                        <img class="img-circle" src="{{ MEDIA_URL }}{{ author.image }}" style="width: 50px">
+                        <span class="align-middle">{{ author.nike_name }}</span>
+                    </a>
+                </div>
+                <div class="panel-body">
+                    {{ comment.description }}
+                </div>
+                <div class="panel-footer text-right">
+                    <a id="a_hover" onclick="like(this,{{ comment.id }})"><span id="tu" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a><label class="d{{ comment.id }}">{{ comment.likeCount }}</label>
+                    <a id="a_hover" onclick="dislike(this,{{ comment.id }})"><span id="td" class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a><label class="d{{ comment.id }}">{{ comment.dislikeCount }}</label>
+{#                    <button id="a_hover" onclick="dislike(this,{{ comment.id }})"><span id="td" class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>{{ comment.dislikeCount }}#}
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        {#点赞功能#}
+        $("#lbtn").click(function (){
+            var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+            $.ajax({
+                url:'/dynamics/like/',
+                data:{ like:1,id:{{dynamic.id}},'csrfmiddlewaretoken': csrf},
+                type:'POST',
+                dataType:'json',
+                success: function (data){
+                    console.log(data);
+                    $("#like")[0].innerHTML = data;
+                }
+            })
+        })
+        {#踩功能#}
+        $("#dbtn").click(function (){
+            var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+            $.ajax({
+                url:'/dynamics/dislike/',
+                data:{dislike:1,id:{{dynamic.id}},'csrfmiddlewaretoken': csrf},
+                type:'POST',
+                dataType:'json',
+                success: function (data){
+                    console.log(data);
+                    $("#dislike")[0].innerHTML = data;
+
+                }
+            })
+        })
+        {#评论点赞功能#}
+        $(".comment_thumbs_up").click(function (){
+            if($.isEmptyObject($("#tu").css('color'))){
+                $("#tu").css('color','red');
+               alert("点赞成功！");
+            }else if($("#tu").css('color')=='rgb(255, 0, 0)'){
+                alert("已经点赞过了！");
+            }
+        })
+        //$("a").click(function(){
+            //alert("点击a标签");
+        //})
+        {#评论踩功能#}
+        $(".comment_thumbs_down").click(function (){
+            if($.isEmptyObject($("#td").css('color'))){
+                $("#td").css('color','red');
+               alert("点踩成功！");
+            }else if($("#td").css('color')=='rgb(255, 0, 0)'){
+                alert("已经点踩过了！");
+            }
+        })
+        function dislike(t,id){
+            $.ajax(
+                {
+                url:'/dynamics/comment/dislike/',
+                data:{id:id, did:{{ dynamic.id }}},
+                type:'POST',
+                dataType:'json',
+                success: function (data){
+                    //获取踩的那个按钮的数据
+                    str = "d"+id;
+                    //console.log(str);
+                    var s = document.getElementsByClassName(str);
+                    //console.log(s);
+                    s[1].innerHTML = data;
+                }
+                }
+            )
+        }
+
+        function like(t,id){
+            $.ajax(
+                {
+                url:'/dynamics/comment/like/',
+                data:{id:id, did:{{ dynamic.id }}},
+                type:'POST',
+                dataType:'json',
+                success: function (data){
+                    {#console.log(data);#}
+                    //获取踩的那个按钮的数据
+                    str = "d"+id;
+                    //console.log(str);
+                    var s = document.getElementsByClassName(str);
+                    //console.log(s);
+                    s[0].innerHTML = data;
+                }
+                }
+            )
+        }
+    </script>
+{% endblock %}
